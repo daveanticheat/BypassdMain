@@ -1,0 +1,449 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bypassd - Premium Software Solutions</title>
+    <style>
+        /* Existing CSS remains the same */
+        :root {
+            --primary: #ff1493;
+            --secondary: #ff69b4;
+            --background: #0a0a0a;
+            --text: #ffffff;
+            --card-bg: #1a1a1a;
+            --neon-glow: 0 0 10px var(--primary), 0 0 20px var(--primary), 0 0 30px var(--primary);
+        }
+
+        @keyframes borderGlow {
+            0% { border-color: var(--primary); }
+            50% { border-color: var(--secondary); }
+            100% { border-color: var(--primary); }
+        }
+
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            color: var(--text);
+            line-height: 1.6;
+            background: var(--background);
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(10, 10, 10, 0.95);
+            padding: 1rem 2rem;
+            box-shadow: 0 2px 10px rgba(255, 20, 147, 0.3);
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            backdrop-filter: blur(10px);
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--primary);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text);
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+            text-shadow: var(--neon-glow);
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: var(--primary);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .nav-links a:hover::after {
+            transform: scaleX(1);
+            box-shadow: var(--neon-glow);
+        }
+
+        .hero {
+            padding: 8rem 2rem 4rem;
+            background: linear-gradient(135deg, rgba(10, 10, 10, 0.9), rgba(26, 26, 26, 0.9)),
+                        url('/api/placeholder/1920/1080');
+            background-size: cover;
+            color: white;
+            text-align: center;
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            text-shadow: 0 0 10px var(--primary);
+        }
+
+        .hero p {
+            font-size: 1.25rem;
+            max-width: 600px;
+            margin: 0 auto 2rem;
+        }
+
+        .features {
+            padding: 4rem 2rem;
+            background: rgba(26, 26, 26, 0.5);
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        .features-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .features h2 {
+            margin-bottom: 3rem;
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--primary);
+        }
+
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .feature {
+            padding: 2rem;
+            transition: all 0.3s ease;
+            border-radius: 0.5rem;
+        }
+
+        .feature:hover {
+            background: var(--card-bg);
+            transform: translateY(-4px);
+            box-shadow: 0 0 20px rgba(255, 20, 147, 0.2);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 1rem;
+            text-shadow: var(--neon-glow);
+        }
+
+        footer {
+            background: var(--card-bg);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+            border-top: 2px solid var(--primary);
+            box-shadow: 0 -5px 20px rgba(255, 20, 147, 0.2);
+            animation: fadeIn 1.5s ease-out;
+        }
+
+        @media (max-width: 1024px) {
+            .product-grid {
+                grid-template-columns: repeat(3, 1fr); /* Ensure 3 columns on larger screens */
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .hero h1 {
+                font-size: 2rem;
+            }
+
+            .product-grid {
+                grid-template-columns: repeat(1, 1fr); /* Stack products on smaller screens */
+            }
+        }
+
+        /* New CSS for the product area */
+        .product-category {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 0 2rem;
+        }
+
+        .product-category h2 {
+            font-size: 2rem;
+            color: var(--primary);
+            text-shadow: 0 0 10px var(--primary);
+            margin-bottom: 1rem;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr); /* Always 3 columns */
+            gap: 2rem;
+        }
+
+        .product-slot {
+            background: var(--card-bg);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            border: 2px solid transparent;
+            transition: all 0.3s ease;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between; /* Align content vertically */
+            height: 100%; /* Ensure all boxes have the same height */
+        }
+
+        .product-slot.empty {
+            background: transparent; /* Make empty slots invisible */
+            border: 2px solid transparent;
+            box-shadow: none;
+            pointer-events: none; /* Disable hover and click interactions */
+        }
+
+        .product-slot:hover:not(.empty) {
+            transform: translateY(-4px);
+            border-color: var(--primary);
+            box-shadow: var(--neon-glow);
+        }
+
+        .product-name {
+            font-size: 1.5rem;
+            color: var(--primary);
+            text-shadow: 0 0 5px var(--primary);
+            margin-bottom: 0.5rem;
+        }
+
+        .product-description {
+            font-size: 0.9rem;
+            color: var(--text);
+            opacity: 0.8;
+            margin-bottom: 1rem;
+            flex-grow: 1; /* Ensure descriptions take up remaining space */
+        }
+
+        .product-price {
+            font-size: 1.75rem;
+            font-weight: bold;
+            color: var(--secondary);
+            margin-bottom: 1rem;
+        }
+
+        /* Updated CSS for the "Purchase Now" buttons */
+        a.product-button {
+            width: 100%;
+            padding: 0.75rem;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 0.5rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            border: 2px solid var(--primary);
+            text-decoration: none; /* Remove underline */
+            display: block; /* Ensure it behaves like a button */
+            text-align: center; /* Center text */
+        }
+
+        a.product-button:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--neon-glow);
+            animation: borderGlow 2s infinite;
+        }
+
+        /* Smaller button for the hero section */
+        .hero .product-button {
+            padding: 0.5rem 1.5rem; /* Smaller padding */
+            font-size: 1rem; /* Smaller font size */
+            width: auto; /* Auto width instead of 100% */
+            display: inline-block; /* Make it inline-block instead of block */
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="logo">Bypassd</div>
+        <div class="nav-links">
+            <a href="#cheats">Products</a>
+            <a href="#contact">Contact</a>
+            <a href="status">Status</a>
+        </div>
+    </nav>
+
+    <section class="hero">
+        <h1>Premium Software Solutions</h1>
+        <p>Level up your gameplay experience with our industry leading software tools designed by experienced developers. </p>
+        <a href="#cheats" class="product-button">Explore Cheats</a>
+    </section>
+
+    <!-- Rust Cheats -->
+    <section class="product-category" id="cheats">
+        <h2>Rust Cheats</h2>
+        <div class="product-grid">
+            <div class="product-slot">
+                <h3 class="product-name">Calamari Rust Cheat</h3>
+                <p class="product-description">Basic features for Rust.</p>
+                <div class="product-price">$7 - $60</div>
+                <a href="CalamariCheckout.html" class="product-button">Purchase Now</a>
+            </div>
+            <div class="product-slot">
+                <h3 class="product-name">Fluent Rust Cheat</h3>
+                <p class="product-description">Advanced features for Rust.</p>
+                <div class="product-price">$10 - $90</div>
+                <a href="FluentCheckout.html" class="product-button">Purchase Now</a>
+            </div>
+            <div class="product-slot empty"></div> <!-- Empty slot for product 3 -->
+        </div>
+    </section>
+
+    <!-- EFT Cheats -->
+    <section class="product-category">
+        <h2>EFT Cheats</h2>
+        <div class="product-grid">
+            <div class="product-slot">
+                <h3 class="product-name">NextCheat Lite</h3>
+                <p class="product-description">Basic features for EFT.</p>
+                <div class="product-price">$4 - $40</div>
+                <a href="NextCheatLiteCheckout.html" class="product-button">Purchase Now</a>
+            </div>
+            <div class="product-slot">
+                <h3 class="product-name">NextCheat Pro</h3>
+                <p class="product-description">Advanced features for EFT.</p>
+                <div class="product-price">$7 - $70</div>
+                <a href="NextCheatProCheckout.html" class="product-button">Purchase Now</a>
+            </div>
+            <div class="product-slot empty"></div> <!-- Empty slot for product 3 -->
+        </div>
+    </section>
+
+    <!-- DayZ Cheats -->
+    <section class="product-category">
+        <h2>DayZ Cheats</h2>
+        <div class="product-grid">
+            <div class="product-slot">
+                <h3 class="product-name">NextCheat DayZ</h3>
+                <p class="product-description">All features for DayZ.</p>
+                <div class="product-price">$6 - $50</div>
+                <a href="NextCheatDayZCheckout.html" class="product-button">Purchase Now</a>
+            </div>
+            <div class="product-slot empty"></div> <!-- Empty slot for product 2 -->
+            <div class="product-slot empty"></div> <!-- Empty slot for product 3 -->
+        </div>
+    </section>
+
+    <!-- HWID Spoofer -->
+    <section class="product-category">
+        <h2>HWID Spoofer</h2>
+        <div class="product-grid">
+            <div class="product-slot">
+                <h3 class="product-name">Nullify Spoofer</h3>
+                <p class="product-description">Spoof your HWID securely.</p>
+                <div class="product-price">$4 - $35</div>
+                <a href="NullifySpooferCheckout.html" class="product-button">Purchase Now</a>
+            </div>
+            <div class="product-slot empty"></div> <!-- Empty slot for product 2 -->
+            <div class="product-slot empty"></div> <!-- Empty slot for product 3 -->
+        </div>
+    </section>
+
+    <section class="features" id="features">
+        <div class="features-container">
+            <h2>Why Choose Bypassd?</h2>
+            <div class="feature-grid">
+                <div class="feature">
+                    <div class="feature-icon">🎮</div>
+                    <h1>Quality</h1>
+                    <p>Optimized for maximum performance with minimal system impact</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">⚡</div>
+                    <h3>Ultra Fast</h3>
+                    <p>Lightning-quick response times for seamless use with every user</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🛡️</div>
+                    <h3>24/7 Support</h3>
+                    <p>We aim to provide the best support possible to ensure you have an amazing experience.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="contact">
+        <p>© 2025 Bypassd. All rights reserved.</p>
+        <p>Contact: discord.gg/bypassd</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Smooth scrolling
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    document.querySelector(this.getAttribute('href')).scrollIntoView({
+                        behavior: 'smooth'
+                    });
+                });
+            });
+
+            // Button effects
+            document.querySelectorAll('.product-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    this.style.transform = 'scale(0.95)';
+                    setTimeout(() => {
+                        this.style.transform = 'scale(1)';
+                    }, 100);
+                    
+                    const productName = this.closest('.product-slot')?.querySelector('.product-name')?.textContent || 'unknown';
+                    console.log(`Selected package: ${productName}`);
+                });
+            });
+        });
+    </script>
+</body>
+</html>
